@@ -8,6 +8,6 @@ type UserRepository interface {
 	GetUserByEmail(email string) (models.DBUser, error)
 	GetUsers(id []int) ([]models.DBUser, error)
 	GetUsersByFilter(id []int, fromAge, toAge int, gender string) ([]models.DBUser, error)
-	AuthenticateUser(email string, passwordHash string) (bool, error)
-	SearchUsers(lat, lon float64, offset int, count int) ([]models.DBUser, error)
+	// AuthenticateUser(email string, passwordHash string) (bool, error)
+	// SearchUsers(lat, lon float64, offset int, count int) ([]models.DBUser, error)
 }

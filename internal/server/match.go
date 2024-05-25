@@ -2,6 +2,7 @@ package server
 
 import (
 	"encoding/json"
+	"net/http"
 	"strconv"
 
 	"github.com/ankur-toko/muzz/internal/controllers"
@@ -15,7 +16,7 @@ func Discover(c echo.Context) error {
 
 	claims := user.Claims.(*controllers.JwtCustomClaims)
 	userId := claims.UserId
-	m := controllers.MatchControllerInstance()
+	m := controllers.GetMatchController()
 
 	fromAge := 0
 	toAge := 100
@@ -36,7 +37,7 @@ func Discover(c echo.Context) error {
 
 	users, err := m.Discover(userId, fromAge, toAge, gender)
 	if err != nil {
-		c.String(501, err.Error())
+		c.String(502, err.Error())
 		return err
 	}
 	c.JSON(200, users)
@@ -57,16 +58,16 @@ func Swipe(c echo.Context) error {
 	claims := user.Claims.(*controllers.JwtCustomClaims)
 	userId := claims.UserId
 
-	m := controllers.MatchControllerInstance()
+	m := controllers.GetMatchController()
 
 	var sR models.SwipeApiInput
 	json.NewDecoder(c.Request().Body).Decode(&sR)
 
 	users, err := m.Swipe(userId, sR)
 	if err != nil {
-		c.String(501, err.Error())
+		c.String(http.StatusInternalServerError, err.Error())
 		return err
 	}
-	c.JSON(200, users)
+	c.JSON(http.StatusOK, users)
 	return nil
 }

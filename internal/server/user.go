@@ -14,7 +14,7 @@ import (
 var userController controllers.UserController
 
 func init() {
-	userController = controllers.UserControllerInstance
+	userController = controllers.GetUserController()
 }
 
 func AddUser(c echo.Context) error {

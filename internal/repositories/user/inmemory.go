@@ -2,9 +2,12 @@ package user
 
 import (
 	"fmt"
+	"sync"
 
 	"github.com/ankur-toko/muzz/internal/models"
 )
+
+var lock *sync.Mutex
 
 type UserRepoInMemory struct {
 	UserMap map[int]models.DBUser
@@ -22,6 +25,8 @@ func Instance() *UserRepoInMemory {
 }
 
 func (u *UserRepoInMemory) SaveUser(email, name, gender, password string, age int, lat, lon float64) (models.DBUser, error) {
+	lock.Lock()
+	defer lock.Unlock()
 	id := len(u.UserMap) + 1
 	user := models.DBUser{
 		Id:       id,
@@ -80,14 +85,4 @@ func (u *UserRepoInMemory) GetUsersByFilter(ids []int, fromAge, toAge int, gende
 	}
 
 	return res, nil
-}
-
-func (u *UserRepoInMemory) AuthenticateUser(email string, passwordHash string) (bool, error) {
-	fmt.Println("authenticating user", email, passwordHash)
-	return true, nil
-}
-
-func (u *UserRepoInMemory) SearchUsers(lat, lon float64, offset int, count int) ([]models.DBUser, error) {
-	fmt.Println("getting users", lat, lon, offset, count)
-	return []models.DBUser{}, nil
 }

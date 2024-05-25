@@ -1,5 +1,7 @@
 package match
 
+import "sync"
+
 type MatchInMemoryDB struct {
 	UserMatchMap map[int]map[int]bool
 	MatchesMap   map[int][2]int
@@ -7,6 +9,7 @@ type MatchInMemoryDB struct {
 }
 
 var instance *MatchInMemoryDB
+var lock *sync.Mutex
 
 func Instance() *MatchInMemoryDB {
 	if instance == nil {
@@ -31,6 +34,8 @@ func Instance() *MatchInMemoryDB {
 // 	DiscoverByAgeGenderAndLoc(userId int, minAge, maxAge int, gender int, maxDis int, count int, offset int) ([]int, error)
 
 func (db *MatchInMemoryDB) Swipe(fromUserId, toUserId int) (bool, int, error) {
+	lock.Lock()
+	defer lock.Unlock()
 	if db.UserMatchMap[fromUserId] == nil {
 		db.UserMatchMap[fromUserId] = map[int]bool{}
 	}
@@ -63,6 +68,8 @@ func (db *MatchInMemoryDB) Discover(userId int) ([]int, error) {
 }
 
 func (db *MatchInMemoryDB) AddUser(userId int) error {
+	lock.Lock()
+	defer lock.Unlock()
 	db.UsersMap[userId] = true
 	return nil
 }

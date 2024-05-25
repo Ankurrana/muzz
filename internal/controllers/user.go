@@ -28,14 +28,6 @@ type UserController struct {
 	hashAlgo Hasher
 }
 
-func init() {
-	UserControllerInstance = UserController{
-		user.Instance(),
-		match.Instance(),
-		MyDummyHash{},
-	}
-}
-
 func (uC UserController) AddUser(u models.UserApiInput) (models.User, error) {
 	// Do the validations here and respond back
 	ok, err := govalidator.ValidateStruct(u)
