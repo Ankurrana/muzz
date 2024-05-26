@@ -9,6 +9,7 @@ type MatchPostgresRepo struct {
 	Conn *gorm.DB
 }
 
+// Swipe u
 func (mDB *MatchPostgresRepo) Swipe(fromUserId, toUserId int) (bool, int, error) {
 	swipe := sql.Swipe{
 		FromUser: fromUserId,
@@ -29,8 +30,10 @@ func (mDB *MatchPostgresRepo) Swipe(fromUserId, toUserId int) (bool, int, error)
 		Where("swipe = ?", true).
 		Find(&swipes)
 
+		//
 	mDB.Conn.Exec("UPDATE user_summaries SET swipe_count = swipe_count + 1 WHERE user_id = ?", fromUserId)
 
+	// It user is already swiped by the other user, we create a new match
 	if len(swipes) > 0 {
 		// Create a match as well
 		match := sql.Match{UserA: toUserId, UserB: fromUserId}
@@ -72,7 +75,7 @@ func (mDB *MatchPostgresRepo) Matches(userId int) ([]int, error) {
 	return ids, nil
 }
 
-// gets "count" number of next potencial matches for this user
+// gets all potencial matches for this user
 func (mDB *MatchPostgresRepo) Discover(userId int) ([]int, error) {
 	// select user_id from user_swipes where user_id not in (select to_user where from_user = userId)
 	userIds := []int{}
@@ -85,6 +88,7 @@ func (mDB *MatchPostgresRepo) Discover(userId int) ([]int, error) {
 
 }
 
+// adds user to the match summaries table
 func (mDB *MatchPostgresRepo) AddUser(userId int) error {
 	s := sql.UserSummary{UserId: userId, SwipeCount: 0, MatchCount: 0}
 	res := mDB.Conn.Create((&s))

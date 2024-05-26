@@ -131,3 +131,13 @@ make swipe_3_1     # User 3 swipes yes on User 1
 ```
     make clean_db
 ```
+
+
+### Assumptions, Improvements and Points to Note
+1. The Discover API will return all possible matches for the user, ignoring users who have already been swiped right. This approach is not ideal for large-scale systems. To handle a large number of users, we need to use pagination with custom rank sorting. Using a function scoring system like Elasticsearch would be more effective.
+2. Login JWT tokens are valid for 1 hour.
+3. A dummy hashing algorithm is currently used to hash passwords for storage in the database. This dummy algorithm simply returns the plain password. It can be easily extended to use modern hashing algorithms.
+4. Unit testing is done only for some parts of the code. This is to demonstrate the good design of the code with an appropriate level of abstractions, making it easy to write unit tests for any part of the system.
+5. Ideally, user-friendly errors should be returned, but this has been ignored for the scope of this exercise.
+6. I focused on good code architecture and ensuring all requested use cases are covered. I limited myself to one day to complete this code, resulting in some trade-offs. For example, unit testing, error handling, API versioning, logging levels, request tracing, rate limiting, code linting, and benchmarking are areas that could be significantly improved.
+7. I'd love to have a detailed discussion on how to improve this code for scalability. Maybe we can discuss how to design architecture for scale in the interview.

@@ -11,7 +11,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-var SecretKey = []byte("secret-key-1")
+var SecretKey = []byte("secret-key")
 
 type LoginResponse struct {
 	Token string `json:"token"`

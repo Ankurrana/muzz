@@ -6,9 +6,6 @@ import (
 	echo "github.com/labstack/echo/v4"
 )
 
-/*
-curl -d '{"name":"ankur","email":"abc@gmail.com","password":"ankur123","age":"30","lat":"-23.324","lon":"23.123","gender":"male"}' -H 'Content-Type: application/json' localhost:8000/user
-*/
 func AddRoutes(e *echo.Echo) {
 	e.POST("/user/create", AddUser)
 	e.POST("/login", LoginUser)
