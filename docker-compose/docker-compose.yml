@@ -11,6 +11,3 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
-
-
-#arch -x86_64 brew install --cask docker

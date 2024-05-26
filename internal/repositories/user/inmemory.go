@@ -7,7 +7,7 @@ import (
 	"github.com/ankur-toko/muzz/internal/models"
 )
 
-var lock *sync.Mutex
+var lock = &sync.Mutex{}
 
 type UserRepoInMemory struct {
 	UserMap map[int]models.DBUser

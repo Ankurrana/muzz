@@ -20,7 +20,7 @@ func (s AgeAndLocationScorer) CalculateMatchScore(a, b models.User) float64 {
 	return score
 }
 
-func mod(a int) int {
+func mod[T int | float64 | float32](a T) T {
 	if a < 0 {
 		return -a
 	}

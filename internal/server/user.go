@@ -13,11 +13,8 @@ import (
 
 var userController controllers.UserController
 
-func init() {
-	userController = controllers.GetUserController()
-}
-
 func AddUser(c echo.Context) error {
+	userController = controllers.GetUserController()
 	var user models.UserApiInput
 	json.NewDecoder(c.Request().Body).Decode(&user)
 	fmt.Printf("%+v", user)

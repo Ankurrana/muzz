@@ -58,7 +58,7 @@ func (mC *MatchController) Swipe(userId int, swipeInput models.SwipeApiInput) (m
 	}
 
 	if userId == swipeInput.UserId {
-		return models.SwipeApiResponse{}, fmt.Errorf("self right swipe is unnecessary! :D ")
+		return models.SwipeApiResponse{}, fmt.Errorf("self right swipe is unnecessary! You love:D ")
 	}
 
 	if strings.ToLower(swipeInput.Preference) == "yes" {

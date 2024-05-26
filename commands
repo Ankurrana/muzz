@@ -23,11 +23,7 @@ curl --location 'localhost:8000/login' \
 // Discover users
 curl --location --request GET 'localhost:8000/discover?min_age=20&max_age=30&gender=male' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRpdGlrc2hhQGdtYWlsLmNvbSIsInVzZXJfaWQiOjYsImV4cCI6MTcxNjY3NjU1N30._HnQO3mMWBzI3BolWxXcoZO6PeUZpsAzgxDKZc9AZm0' \
---header 'Content-Type: application/json' \
---data '{
-    "user_id" : 2,
-    "preference" : "yes"
-}'
+--header 'Content-Type: application/json' 
 
 // Swipe right
 curl --location 'localhost:8000/swipe' \

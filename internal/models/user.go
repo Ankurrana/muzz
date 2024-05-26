@@ -2,8 +2,8 @@ package models
 
 type UserApiInput struct {
 	Name     string  `json:"name" valid:"required"`
-	Email    string  `json:"email" valid:"email"`
-	Password string  `json:"password"`
+	Email    string  `json:"email" valid:"email,required"`
+	Password string  `json:"password" valid:"required"`
 	Age      int     `json:"age" valid:"range(1|99)"`
 	Gender   string  `json:"gender" valid:"matches(male|female|lgbtqp)"`
 	Lat      float64 `json:"lat"`

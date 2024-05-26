@@ -9,7 +9,7 @@ type MatchInMemoryDB struct {
 }
 
 var instance *MatchInMemoryDB
-var lock *sync.Mutex
+var lock = &sync.Mutex{}
 
 func Instance() *MatchInMemoryDB {
 	if instance == nil {
@@ -21,17 +21,6 @@ func Instance() *MatchInMemoryDB {
 	}
 	return instance
 }
-
-// Swipe(fromUserId, toUserId int, ts time.Time) (bool, error)
-// 	// gets "count" number of matches for this user
-// 	Matches(userId int, count int, offset int) ([]int, error)
-
-// 	// gets "count" number of next potencial matches for this user
-// 	Discover(userId int, count int, offset int) ([]int, error)
-
-// 	DiscoverByAgeAndGender(userId int, minAge, maxAge int, gender int, count int, offset int) ([]int, error)
-
-// 	DiscoverByAgeGenderAndLoc(userId int, minAge, maxAge int, gender int, maxDis int, count int, offset int) ([]int, error)
 
 func (db *MatchInMemoryDB) Swipe(fromUserId, toUserId int) (bool, int, error) {
 	lock.Lock()

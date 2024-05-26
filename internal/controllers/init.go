@@ -14,7 +14,7 @@ var uRepo user.UserRepository
 var userController UserController
 var matchController MatchController
 
-func init() {
+func Initialize() {
 	conn, err := sql.Connection()
 	if err != nil {
 		log.Fatal("error: unable to connect to DB", err)

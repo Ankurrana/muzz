@@ -25,17 +25,6 @@ func (db *UserPostgresRepo) SaveUser(email, name, gender, password string, age i
 	if res.Error != nil {
 		return models.DBUser{}, res.Error
 	}
-
-	/*
-		type User struct {
-			Name   string  `json:"name"`
-			Email  string  `json:"email"`
-			Age    int     `json:"age"`
-			Gender string  `json:"gender"`
-			Lat    float64 `json:"lat"`
-			Lon    float64 `json:"lon"`
-		}
-	*/
 	u := mapSQLUserToDBUser(user)
 	return u, nil
 }
